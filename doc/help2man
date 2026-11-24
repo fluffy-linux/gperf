@@ -1,4 +1,4 @@
-#!/usr/bin/env perl
+#!/sw/perl/bin/perl
 
 # Generate a short man page from --help and --version output.
 # Copyright © 1997-2000, 2024 Free Software Foundation, Inc.
