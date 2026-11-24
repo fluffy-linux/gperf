@@ -1842,7 +1842,12 @@ sub pretty_date {
 
     @MoY = ('January', 'February', 'March', 'April', 'May', 'June',
 	    'July', 'August', 'September', 'October', 'November', 'December');
-    ($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = localtime(time);
+    # The date is SOURCE_DATE_EPOCH's, in UTC, when it is set.
+    if (defined($ENV{'SOURCE_DATE_EPOCH'}) && $ENV{'SOURCE_DATE_EPOCH'} =~ /^(\d+)$/) {
+	($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = gmtime($1);
+    } else {
+	($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = localtime(time);
+    }
     $year += ($year < 70) ? 2000 : 1900;
     return("$mday $MoY[$mon] $year");
 }

@@ -166,7 +166,15 @@ my ($help_text, $version_text) = map {
 	or die "$this_program: can't get `--$_' info from $ARGV[0]\n"
 } qw(help version);
 
-my $date = strftime "%B %Y", localtime;
+# The date is SOURCE_DATE_EPOCH's, in UTC, when it is set, as later
+# help2man versions do.
+my $epoch_secs = time;
+if (exists $ENV{SOURCE_DATE_EPOCH} and $ENV{SOURCE_DATE_EPOCH} =~ /^(\d+)$/)
+{
+    $epoch_secs = $1;
+    $ENV{TZ} = 'UTC0';
+}
+my $date = strftime "%B %Y", localtime $epoch_secs;
 (my $program = $ARGV[0]) =~ s!.*/!!;
 my $package = $program;
 my $version;
