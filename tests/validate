@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/sw/bash/bin/bash
 # Validate gperf's operation on a given input file.
 # Usage: validate languages input.gperf [more gperf options]
 # Uses the environment variables GPERF, CC, CFLAGS, CXX, CXXFLAGS.
